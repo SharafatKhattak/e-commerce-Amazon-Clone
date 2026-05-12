@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # e-commerce-Amazon-Clone
 =======
 # 🚀 Amazon Clone - Full-Stack E-Commerce Application
@@ -109,44 +109,8 @@ ecommerce-amazon-clone/
 └── README.md
 ```
 
-## 💻 Installation
 
-### Prerequisites
-- Node.js 18+ and npm
-- MongoDB Atlas account
-- Git
 
-### Step 1: Clone the Repository
-```bash
-git clone <repository-url>
-cd ecommerce-amazon-clone
-```
-
-### Step 2: Backend Setup
-```bash
-cd backend
-
-# Install dependencies
-npm install
-
-# Create .env file
-cp .env.example .env
-
-# Configure your .env file with actual values
-```
-
-### Step 3: Frontend Setup
-```bash
-cd ../frontend
-
-# Install dependencies
-npm install
-
-# Create .env file
-cp .env.example .env
-
-# Configure your .env file
-```
 
 ## 🔑 Environment Variables
 
