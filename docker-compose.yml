@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:7.0
+    container_name: amazon-clone-db
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: amazon_clone
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - amazon-clone-network
+
+  # Node.js Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: amazon-clone-backend
+    ports:
+      - "5000:5000"
+    environment:
+      MONGODB_URI: mongodb://admin:password123@mongodb:27017/amazon_clone
+      JWT_SECRET: super_secret_key_32_characters_long_123
+      JWT_REFRESH_SECRET: refresh_secret_key_32_characters_1234
+      STRIPE_SECRET_KEY: sk_test_dummy_key
+      STRIPE_WEBHOOK_SECRET: whsec_dummy_key
+      CLOUDINARY_CLOUD_NAME: dummy
+      CLOUDINARY_API_KEY: dummy
+      CLOUDINARY_API_SECRET: dummy
+      PORT: 5000
+      FRONTEND_URL: http://localhost:5173
+      NODE_ENV: development
+    depends_on:
+      - mongodb
+    networks:
+      - amazon-clone-network
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+  # React Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: amazon-clone-frontend
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:5000/api
+      VITE_STRIPE_PUBLIC_KEY: pk_test_dummy_key
+    depends_on:
+      - backend
+    networks:
+      - amazon-clone-network
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+volumes:
+  mongodb_data:
+
+networks:
+  amazon-clone-network:
+    driver: bridge
