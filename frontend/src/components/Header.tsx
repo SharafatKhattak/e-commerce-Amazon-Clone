@@ -30,6 +30,7 @@ const Header: React.FC = () => {
       <div className="flex items-center justify-between px-4 py-3 max-w-7xl mx-auto">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-1">
+          <span className="text-3xl font-bold text">Sharafat Ullah 081</span>
           <span className="text-3xl font-bold text-amazon-orange">Amazon</span>
           <span className="text-xl text-amazon-orange">.clone</span>
         </Link>
